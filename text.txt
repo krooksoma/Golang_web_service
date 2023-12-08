@@ -1,0 +1,47 @@
+import (
+    "fmt"
+    "log"
+    "net/http"
+)
+
+func homePage(w http.ResponseWriter, r *http.Request){
+    fmt.Fprintf(w, "Welcome to the HomePage!")
+    fmt.Println("Endpoint Hit: homePage")
+}
+
+func handleRequests() {
+    http.HandleFunc("/", homePage)
+    log.Fatal(http.ListenAndServe(":10000", nil))
+}
+
+func main() {
+    handleRequests()
+}
+
+
+var deck []Card
+	
+cardSuits := []string{"Clubs", "Spades", "Hearts", "Diamonds"}
+cardValues := []string{"Ace", "Two", "Three", "Four", "Five", "Six",
+                        "Seven", "Eight", "Nine", "Ten", "Joker", "Queen", "King"}
+
+for _, xsuit := range cardSuits{
+    for _, xvalue := range cardValues{
+        var card Card = Card{Value: xvalue, Suit: xsuit}
+        deck = append(deck, card)
+    }
+}
+
+
+for _, card := range deck{
+    fmt.Println(card.Value + " of " + card.Suit)
+}
+
+curls commands
+POST
+curl http://localhost:8080/albums     --include   
+--header "Content-Type: application/json"     --request "POST" 
+--data '{"id": "4","title": "The Modern Sound of Betty Carter","artist": "Betty Carter","price": 49.99}'
+GET
+curl http://localhost:8080/albums     --include   
+--header "Content-Type: application/json"     --request "GET" 
